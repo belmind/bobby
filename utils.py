@@ -6,7 +6,7 @@ def b(str):
     return str.encode()
 
 
-def print_lines():
+def print_divider():
     print('================')
 
 

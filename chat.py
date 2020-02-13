@@ -1,6 +1,6 @@
 import config
 
-from utils import print_lines
+from utils import print_divider
 
 END = b'End of /NAMES list'
 
@@ -10,7 +10,7 @@ def join_chat(s):
         read_buffer = b''
         loading = True
         while loading:
-            print_lines()
+            print_divider()
             read_buffer = read_buffer + s.recv(1024)
             tmp = read_buffer.split(b'\n')
             read_buffer = tmp.pop()
@@ -18,7 +18,7 @@ def join_chat(s):
                 print(line.strip())
                 loading = END in line
 
-        print_lines()
+        print_divider()
 
         return True, "Sucessfully joined {}'s the room.".format(config.CHANNEL)
 
