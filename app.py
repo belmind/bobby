@@ -1,9 +1,14 @@
-import config
 import chat
+import config
+import sys
+import utils
 
 from connect import open_socket
 from datetime import datetime
-from utils import str_timestamp, Color, print_divider, bobby
+from utils import (
+    str_timestamp, str_datetime, Color, print_divider,
+    bobby
+)
 from oauth import OAUTH
 
 
@@ -23,11 +28,18 @@ def start_up():
 
 def main():
     s = start_up()
+    utils.create_folder()
     chat.send_message(s, "Fear not! The friendly chatbot is here! 🤖")
 
     # Main loop
     while True:
-        chat.read_messages(s, b'', True)
+        chat.run(
+            s=s,
+            read_buffer=b'',
+            file_name=utils.generate_file_name(),
+            path=config.PATH,
+            print_flag=config.PRINT_CHAT
+        )
 
 
 if __name__ == '__main__':

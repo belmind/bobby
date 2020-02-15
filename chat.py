@@ -1,6 +1,6 @@
 import config
 
-from utils import b, str_timestamp, Color
+from utils import b, str_timestamp, Color, random_color
 
 END = b'End of /NAMES list'
 
@@ -18,7 +18,7 @@ def join(s):
                 loading = END in line
 
 
-        return True, f"{Color.OKBLUE}Sucessfully joined {config.CHANNEL}'s the room.{Color.ENDC}"
+        return True, f"{Color.OKBLUE}Sucessfully joined {config.CHANNEL}'s chat.{Color.ENDC}"
     except Exception as e:
         # Genereic Exception is fine for now
         return False, e
@@ -26,7 +26,7 @@ def join(s):
 
 def send_message(s, msg):
     """
-    Sends a message. 
+    Sends a message.
 
     Args:
         s - Connection.
@@ -43,28 +43,43 @@ def send_message(s, msg):
         return False, e
 
 
-def read_messages(s, read_buffer, print_flag=False): 
+def run(
+    s,
+    read_buffer,
+    file_name,
+    path,
+    print_flag=False,
+):
     """
     Listens and reads messages in chat. Will call `respond_to_message`
-    when relevant.
-    
+    when relevant. Acts as the main-loop for the bot. Might need to
+    refractor later.
+
     Args:
         s - Connection.
         read_buffer (string) - The read_buffer, usually empty string.
-        print_flag (bool) - Flag to determine if we should print the messages.
-    
+        file_name (string) - Name of file created.
+        path (string) - Path to chatlogs, defaults to dir `chatlogs`.
+        print_flag (bool) - Determines if print the messages.
     """
     read_buffer = read_buffer + s.recv(1024)
-    tmp = read_buffer.split(b'\n')        
+    tmp = read_buffer.split(b'\n')
     read_buffer = tmp.pop()
 
-    for line in tmp:
-        user = get_username(line)
-        msg = get_message(line)
-        ts = str_timestamp()
-
-        if print_flag:
-            print(f'{Color.OKGREEN}[{ts}] {user} < : {msg}{Color.ENDC}'.format(ts, user, msg)) 
+    with open(path + '/' + file_name, 'a+') as f:
+        for line in tmp:
+            user = get_username(line)
+            msg = get_message(line)
+            ts = str_timestamp()
+            # Twitch will ping every bot once every 5 min with a msg that
+            # contains the string `PING`, the bot needs to respond with
+            # the same message but with `PONG` instead.
+            if 'PING' in msg:
+                msg = msg.replace('PING', 'PONG')
+                s.sendall(b(msg))
+            elif print_flag:
+                print(f'{random_color()}[{ts}] {user} < : {msg}{Color.ENDC}')
+            f.write(f'[{ts}] {user} < : {msg} \n')
 
 
 def get_username(line):
