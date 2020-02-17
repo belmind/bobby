@@ -1,6 +1,6 @@
-import config
 import socket
 
+import config
 from oauth import OAUTH
 from utils import b
 

@@ -1,6 +1,5 @@
 import config
-
-from utils import b, str_timestamp, Color, random_color
+from utils import Color, b, random_color, str_timestamp
 
 END = b'End of /NAMES list'
 
@@ -77,8 +76,10 @@ def run(
             if 'PING' in msg:
                 msg = msg.replace('PING', 'PONG')
                 s.sendall(b(msg))
+
             elif print_flag:
                 print(f'{random_color()}[{ts}] {user} < : {msg}{Color.ENDC}')
+
             f.write(f'[{ts}] {user} < : {msg} \n')
 
 
@@ -97,5 +98,5 @@ def get_message(line):
     try:
         return s[2].replace("\\r'", '')
     except Exception as e:
+        print(e)
         return ''
-

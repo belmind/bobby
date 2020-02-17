@@ -1,9 +1,9 @@
-import config
 import os
 import random
 import sys
-
 from datetime import datetime
+
+import config
 
 
 class Color():
@@ -89,4 +89,3 @@ def generate_file_name():
         file_name = str_datetime() + '.txt'
 
     return file_name
-
