@@ -1,12 +1,8 @@
-import sys
-from datetime import datetime
-
 import chat
 import config
 import utils
 from connect import open_socket
-from oauth import OAUTH
-from utils import Color, bobby, print_divider, str_datetime, str_timestamp
+from utils import bobby, print_divider
 
 
 def start_up():

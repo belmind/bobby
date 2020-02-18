@@ -1,3 +1,4 @@
+# flake8: noqa
 import os
 import random
 import sys
@@ -21,7 +22,7 @@ class Color():
 def random_color():
     """
     Returns a random color.
-    Excludes `BOLD`, `UNDERLINE` and `ENDC`.
+    (Excludes `BOLD`, `UNDERLINE` and `ENDC`.)
     """
     colors = [
         Color.HEADER,
@@ -51,6 +52,7 @@ def str_datetime():
 
 
 def bobby():
+    # pylint: disable=W1401
     return """
  _           _     _
 | |__   ___ | |__ | |__  _   _
