@@ -2,7 +2,7 @@ import chat
 import config
 import utils
 from connect import open_socket
-from utils import bobby, print_divider
+from utils import Color, bobby, print_divider
 
 
 def start_up():
@@ -23,17 +23,20 @@ def main():
     s = start_up()
     utils.create_folder()
     chat.send_message(s, "Fear not! The friendly chatbot is here! 🤖")
+    file_name = utils.generate_file_name()
 
     # Main loop
-    while True:
-        chat.run(
-            s=s,
-            read_buffer=b'',
-            file_name=utils.generate_file_name(),
-            path=config.PATH,
-            print_flag=config.PRINT_CHAT
-        )
-
+    try:
+        while True:
+            chat.run(
+                s=s,
+                read_buffer=b'',
+                file_name=file_name,
+                path=config.PATH,
+                print_flag=config.PRINT_CHAT
+            )
+    except KeyboardInterrupt:
+        print(f'\n{Color.OKGREEN}Great session! The chatlogs has been saved to `{config.PATH}/{file_name}`{Color.ENDC}')  # noqa: E501
 
 if __name__ == '__main__':
     main()
