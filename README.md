@@ -27,8 +27,9 @@
 ## Features
 - [X] Write chatlogs to files
 - [X] Logging every chat message (Read chat in your terminal emulator)
+- [X] Respond to messages in chat
+- [ ] Respond to commands such as `/roll`
 - [ ] Send messages periodically
-- [ ] Respond to messages / commands in chat
 - [ ] Timeout / Ban users in chat for faul language
 - [ ] Timeout spammers
 
@@ -46,6 +47,16 @@ Open the file `config.py` and add your `CHANNEL` name and `OATH` key. If you don
 python3 app.py name
 ```
 Where `name` is the name of the output file. It's not necessary and defaults to `%d-%m-%y.txt`
+
+### Chat Responses
+It's simple to edit the chat responses! Simply, open the file `responses.csv` and modify it!
+```
+!rank, Diamond IV (44 LP)
+!highscore, My highscore is exactly 113 312 413 100!
+```
+**NOTE that the values are being separated by a comma `,`.**
+
+Bobby will then respond with the following format: `@user : msg` in a few milliseconds.
 
 ## Contributing
 Pull requests are welcome. Please make sure to update tests as appropriate.

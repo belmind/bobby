@@ -1,3 +1,4 @@
+import csv
 import socket
 
 import config
@@ -94,6 +95,7 @@ class ChatSession():
         read_buffer = tmp.pop()
         contains_emote = False
         emotes = load_emotes()
+        responses = load_responses()
 
         with open(path + '/' + file_name, 'a+') as f:
             for line in tmp:
@@ -101,6 +103,7 @@ class ChatSession():
                 user = get_username(line, contains_emote)
                 msg = get_message(line, contains_emote)
                 ts = str_timestamp()
+
                 # Twitch will ping every bot once every 5 min with a msg that
                 # contains the string `PING`, the bot needs to respond with
                 # the same message but with `PONG` instead.
@@ -110,8 +113,15 @@ class ChatSession():
 
                 elif print_flag and msg != '' and user != '':
                     print(f'{random_color()}[{ts}] {user} < : {msg}{Color.ENDC}')  # noqa: E501
+                    f.write(f'[{ts}] {user} < : {msg} \n')
 
-                f.write(f'[{ts}] {user} < : {msg} \n')
+                try:
+                    if msg[0] == '!' and responses.get(msg):
+                        _msg = f'@{user} : {responses.get(msg)}'
+                        self.send_message(_msg)
+                        f.write(f'[{ts}] {self.bot_name} > : {_msg} \n')
+                except IndexError:
+                    pass
 
 
 def get_username(line, emote):
@@ -160,3 +170,10 @@ def get_message(line, emote):
         return s[i].replace("\\r'", '')
     except IndexError:
         return ''
+
+
+def load_responses(file_name='responses.csv'):
+    """Load responses for chat commands such as `!rank` """
+    with open(file_name) as f:
+        reader = csv.reader(f)
+        return {rows[0]: rows[1] for rows in reader}
