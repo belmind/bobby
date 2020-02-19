@@ -1,42 +1,29 @@
 import chat
 import config
 import utils
-from connect import open_socket
+from chat import ChatSession
 from utils import Color, bobby, print_divider
 
 
-def start_up():
-    s = open_socket()
-    status, msg = chat.join(s)
-
-    if status:
-        print(bobby())
-        print(msg)
-        print_divider()
-        return s
-
-    print('BEEP BOOP - Task failed successfully!')
-    exit()
-
-
 def main():
-    s = start_up()
+    session = ChatSession()
     utils.create_folder()
-    chat.send_message(s, "Fear not! The friendly chatbot is here! 🤖")
+    session.send_message("Fear not! The friendly chatbot is here! 🤖")
     file_name = utils.generate_file_name()
 
     # Main loop
     try:
         while True:
-            chat.run(
-                s=s,
+            session.run(
                 read_buffer=b'',
                 file_name=file_name,
                 path=config.PATH,
                 print_flag=config.PRINT_CHAT
             )
+
     except KeyboardInterrupt:
-        print(f'\n{Color.OKGREEN}Great session! The chatlogs has been saved to `{config.PATH}/{file_name}`{Color.ENDC}')  # noqa: E501
+        print(f'\n{Color.OKGREEN}Great session! The chatlogs has been saved to `{config.PATH}/{file_name}`{Color.ENDC}')  # noqa: E501, E999
+
 
 if __name__ == '__main__':
     main()
