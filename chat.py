@@ -117,7 +117,7 @@ class ChatSession():
 
                 try:
                     if msg[0] == '!' and responses.get(msg):
-                        _msg = f'@{user} : {responses.get(msg)}'
+                        _msg = f'@{user} {responses.get(msg)}'
                         self.send_message(_msg)
                         f.write(f'[{ts}] {self.bot_name} > : {_msg} \n')
                 except IndexError:

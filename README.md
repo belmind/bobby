@@ -34,11 +34,15 @@
 - [ ] Timeout spammers
 
 ## Installation
-Open your terminal
-```bash
-git clone git@github.com/belmind/bobby.git
+> Make sure to have Python3 installed on your machine.
 
+Clone the repository.
+```zsh
+git clone git@github.com:belmind/bobby.git
+# or
+git clone https://www.github.com/belmind/bobby
 ```
+
 Open the file `config.py` and add your `CHANNEL` name and `OATH` key. If you don't have a oath key you can get one from [twitchapps.com/tmi](https://twitchapps.com/tmi/).
 
 ## Usage
@@ -56,7 +60,7 @@ It's simple to edit the chat responses! Simply, open the file `responses.csv` an
 ```
 **NOTE that the values are being separated by a comma `,`.**
 
-Bobby will then respond with the following format: `@user : msg` in a few milliseconds.
+Bobby will then respond with the following format: `@{user} {msg}` in a few milliseconds.
 
 ## Contributing
 Pull requests are welcome. Please make sure to update tests as appropriate.
