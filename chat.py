@@ -38,7 +38,7 @@ class ChatSession():
         return session
 
     def join(self):
-        """Joins a chatroom / channel """
+        """Joins a chatroom / channel."""
         try:
             read_buffer = b''
             loading = True
@@ -55,12 +55,10 @@ class ChatSession():
             return False, e
 
     def send_message(self, msg):
-        """
-        Sends a message.
+        """Sends a message.
 
         Args:
-            s - Connection.
-            msg (string) - Message to send.
+            msg (string): Message to send.
         """
         try:
             ts = str_timestamp()
@@ -85,10 +83,10 @@ class ChatSession():
         refractor later.
 
         Args:
-            read_buffer (string) - The read_buffer, usually empty string.
-            file_name (string) - Name of file created.
-            path (string) - Path to chatlogs, defaults to dir `chatlogs`.
-            print_flag (bool) - Determines if print the messages.
+            read_buffer (string): The read_buffer, usually empty string.
+            file_name (string): Name of file created.
+            path (string): Path to chatlogs, defaults to dir `chatlogs`.
+            print_flag (bool): Determines if print the messages.
         """
         read_buffer = read_buffer + self.session.recv(1024)
         tmp = read_buffer.split(b'\n')
@@ -129,8 +127,8 @@ def get_username(line, emote):
     Returns the username.
 
     Args:
-        line (binary) - Line which we parse.
-        emote (bool) - Flag to determine if there is a emote in the line.
+        line (binary): Line which we parse.
+        emote (bool): Flag to determine if there is a emote in the line.
     """
     _line = str(line)
     # `i` and `j` are indexes for where we can fetch the username. If a
@@ -153,8 +151,8 @@ def get_message(line, emote):
     Returns the message.
 
     Args:
-        line (binary) - Line which we parse.
-        emote (bool) - Flag to determine if there is a emote in the line.
+        line (binary): Line which we parse.
+        emote (bool):  Flag to determine if there is a emote in the line.
     """
     _line = str(line)
     # `i` and `j` are indexes for where we can fetch the username. If a
@@ -173,7 +171,7 @@ def get_message(line, emote):
 
 
 def load_responses(file_name='responses.csv'):
-    """Load responses for chat commands such as `!rank` """
+    """Load responses for chat commands such as `!rank`."""
     with open(file_name) as f:
         reader = csv.reader(f)
-        return {rows[0]: rows[1] for rows in reader}
+        return {rows[0]: rows[1:] for rows in reader}

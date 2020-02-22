@@ -8,7 +8,7 @@ import config
 
 
 class Color():
-    """Chat colors for the terminal"""
+    """Chat colors for the terminal."""
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
     OKGREEN = '\033[92m'
@@ -34,7 +34,7 @@ def random_color():
 
 
 def b(str):
-    """ Casts the string to bytes """
+    """ Casts the string to bytes."""
     # Poor naming but it's namely for keeping it tidy
     return str.encode()
 

@@ -1,6 +1,6 @@
 
 def check_emotes(line, emotes=[]):
-    """Checks if a specific lines contains at least one emote. """
+    """Checks if a specific lines contains at least one emote."""
     _line = str(line).split()
     for word in _line:
         _word = word
