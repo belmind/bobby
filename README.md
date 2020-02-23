@@ -36,19 +36,19 @@
 ## Installation
 > Make sure to have Python3 installed on your machine.
 
-Clone the repository.
+Clone the repository and install packages.
 ```zsh
-git clone git@github.com:belmind/bobby.git
-# or
 git clone https://www.github.com/belmind/bobby
+cd bobby
+pip3 install -r requirements.txt
 ```
 
-Open the file `config.py` and add your `CHANNEL` name and `OATH` key. If you don't have a oath key you can get one from [twitchapps.com/tmi](https://twitchapps.com/tmi/).
+Open the file `config.py` and add your `CHANNEL` name and `OATH` key. If you don't already have a oath key you can get one from [twitchapps.com/tmi](https://twitchapps.com/tmi/).
 
 ## Usage
 
 ```zsh
-python3 app.py name
+python3 app.py -f name
 ```
 Where `name` is the name of the output file. It's not necessary and defaults to `%d-%m-%y.txt`
 

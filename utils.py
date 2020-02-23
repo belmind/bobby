@@ -1,7 +1,6 @@
 # flake8: noqa
 import os
 import random
-import sys
 from datetime import datetime
 
 import config
@@ -84,10 +83,7 @@ def create_folder():
     return path
 
 
-def generate_file_name():
-    try:
-        file_name = str(sys.argv[1]) + '.txt'
-    except IndexError:
-        file_name = str_datetime() + '.txt'
-
-    return file_name
+def generate_file_name(file_name=None):
+    if file_name is None:
+        return str_datetime() + '.txt'
+    return str(file_name) + '.txt'

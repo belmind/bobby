@@ -1,15 +1,28 @@
-import chat
+import argparse
+
 import config
 import utils
 from chat import ChatSession
-from utils import Color, bobby, print_divider
+from utils import Color
+
+
+def parser():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '-f',
+        '--file_name',
+        type=str,
+        help='chatlog output filename, .txt format'
+    )
+    return parser.parse_args()
 
 
 def main():
     session = ChatSession()
     utils.create_folder()
     session.send_message("Fear not! The friendly chatbot is here! 🤖")
-    file_name = utils.generate_file_name()
+    args = parser()
+    file_name = utils.generate_file_name(args.file_name)
 
     # Main loop
     try:
