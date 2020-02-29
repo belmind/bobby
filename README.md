@@ -29,8 +29,8 @@
 - [X] Logging every chat message (Read chat in your terminal emulator)
 - [X] Respond to messages in chat
 - [X] Respond to commands such as `!roll`
+- [X] Timeout / Ban users in chat for faul language
 - [ ] Send messages periodically
-- [ ] Timeout / Ban users in chat for faul language
 - [ ] Timeout spammers
 
 ## Installation

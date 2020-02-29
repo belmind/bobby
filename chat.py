@@ -94,6 +94,7 @@ class ChatSession():
         contains_emote = False
         emotes = load_emotes()
         responses = load_responses()
+        bad_words = load_bad_words()
 
         with open(path + '/' + file_name, 'a+') as f:
             for line in tmp:
@@ -101,6 +102,13 @@ class ChatSession():
                 user = get_username(line, contains_emote)
                 msg = get_message(line, contains_emote)
                 ts = str_timestamp()
+
+                # Checks for faul language and immediately bans the user
+                _words = line.split()
+                for word in _words:
+                    if word in bad_words:
+                        _msg = b('PRIVMSG #' + ' /ban ' + user + '\r\n')
+                        self.session.sendall(_msg)
 
                 # Twitch will ping every bot once every 5 min with a msg that
                 # contains the string `PING`, the bot needs to respond with
@@ -190,3 +198,13 @@ def load_responses(file_name='responses.txt'):
             responses[row[0]] = str(row[1]).strip()
 
     return responses
+
+
+def load_bad_words(file_name='bannable_words.txt'):
+    """Load faul words"""
+    bad_words = []
+    with open(file_name) as f:
+        for word in f:
+            bad_words.append(str(word).strip())
+
+    return bad_words
