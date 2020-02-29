@@ -1,4 +1,4 @@
-import csv
+import random
 import socket
 
 import config
@@ -113,6 +113,7 @@ class ChatSession():
                     print(f'{random_color()}[{ts}] {user} < : {msg}{Color.ENDC}')  # noqa: E501
                     f.write(f'[{ts}] {user} < : {msg} \n')
 
+                # Responses
                 try:
                     if msg[0] == '!' and responses.get(msg):
                         _msg = f'@{user} {responses.get(msg)}'
@@ -120,6 +121,16 @@ class ChatSession():
                         f.write(f'[{ts}] {self.bot_name} > : {_msg} \n')
                 except IndexError:
                     pass
+
+                # Roll defaults to 100
+                if '!roll' in msg:
+                    try:
+                        value = random.randrange(100)
+                        _msg = f'@{user} rolled {value} out of {100}! 🎲'
+                        self.send_message(_msg)
+                        f.write(f'[{ts}] {self.bot_name} > : {_msg} \n')
+                    except IndexError:
+                        pass
 
 
 def get_username(line, emote):
@@ -170,8 +181,12 @@ def get_message(line, emote):
         return ''
 
 
-def load_responses(file_name='responses.csv'):
+def load_responses(file_name='responses.txt'):
     """Load responses for chat commands such as `!rank`."""
+    responses = dict()
     with open(file_name) as f:
-        reader = csv.reader(f)
-        return {rows[0]: rows[1:] for rows in reader}
+        for rows in f:
+            row = rows.split(',', maxsplit=1)
+            responses[row[0]] = str(row[1]).strip()
+
+    return responses

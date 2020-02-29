@@ -20,7 +20,7 @@ def parser():
 def main():
     session = ChatSession()
     utils.create_folder()
-    session.send_message("Fear not! The friendly chatbot is here! 🤖")
+    session.send_message("The friendly chatbot is here! 🤖")
     args = parser()
     file_name = utils.generate_file_name(args.file_name)
 

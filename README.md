@@ -28,7 +28,7 @@
 - [X] Write chatlogs to files
 - [X] Logging every chat message (Read chat in your terminal emulator)
 - [X] Respond to messages in chat
-- [ ] Respond to commands such as `/roll`
+- [X] Respond to commands such as `!roll`
 - [ ] Send messages periodically
 - [ ] Timeout / Ban users in chat for faul language
 - [ ] Timeout spammers
@@ -53,7 +53,7 @@ python3 app.py -f name
 Where `name` is the name of the output file. It's not necessary and defaults to `%d-%m-%y.txt`
 
 ### Chat Responses
-It's simple to edit the chat responses! Simply, open the file `responses.csv` and modify it!
+It's simple to edit the chat responses! Simply, open the file `responses.txt` and modify it!
 ```
 !rank, Diamond IV (44 LP)
 !highscore, My highscore is exactly 113 312 413 100!
