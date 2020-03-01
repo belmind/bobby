@@ -62,6 +62,15 @@ It's simple to edit the chat responses! Simply, open the file `responses.txt` an
 
 Bobby will then respond with the following format: `@{user} {msg}` in a few milliseconds.
 
+### Faul Language
+There is a file named `bannable_words.txt` which you can fill out with words you would neve want to see in a chat room.
+```
+badword1
+badword2
+badword3
+```
+Bobby will instantly ban these users from chat. Make sure that you give the bot moderator privileges if you are running it from a seperate account.
+
 ## Contributing
 Pull requests are welcome. Please make sure to update tests as appropriate.
 
