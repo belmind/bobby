@@ -3,7 +3,6 @@ import socket
 
 import config
 from emotes import check_emotes, load_emotes
-from oauth import OAUTH
 from utils import Color, b, bobby, print_divider, random_color, str_timestamp
 
 END = b'End of /NAMES list'
@@ -11,11 +10,15 @@ END = b'End of /NAMES list'
 
 class ChatSession():
     def __init__(self):
+        self.oauth = config.OAUTH
         self.host = config.HOST
         self.port = config.PORT
         self.bot_name = config.BOT_NAME
         self.channel = config.CHANNEL
         self.session = self.open_socket()
+        self.counter = 0
+        self.counter_reset = config.COUNTER_RESET
+        self.periodic_message = config.PERIODIC_MESSAGE
         status, msg = self.join()
 
         if status:
@@ -29,7 +32,7 @@ class ChatSession():
     def open_socket(self):
         session = socket.socket()
         session.connect((self.host, self.port))
-        session.sendall(b('PASS ' + OAUTH + '\r\n'))
+        session.sendall(b('PASS ' + self.oauth + '\r\n'))
         session.sendall(b('NICK ' + self.bot_name + '\r\n'))
         session.sendall(b('CAP REQ :twitch.tv/commands' + '\r\n'))
         session.sendall(b('CAP REQ :twitch.tv/tags' + '\r\n'))
@@ -88,6 +91,7 @@ class ChatSession():
             path (string): Path to chatlogs, defaults to dir `chatlogs`.
             print_flag (bool): Determines if print the messages.
         """
+        self.counter = self.counter + 1
         read_buffer = read_buffer + self.session.recv(1024)
         tmp = read_buffer.split(b'\n')
         read_buffer = tmp.pop()
@@ -139,6 +143,10 @@ class ChatSession():
                         f.write(f'[{ts}] {self.bot_name} > : {_msg} \n')
                     except IndexError:
                         pass
+
+                if self.counter == self.counter_reset:
+                    self.counter = 0
+                    self.send_message(self.periodic_message)
 
 
 def get_username(line, emote):

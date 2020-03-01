@@ -30,7 +30,7 @@
 - [X] Respond to messages in chat
 - [X] Respond to commands such as `!roll`
 - [X] Timeout / Ban users in chat for faul language
-- [ ] Send messages periodically
+- [X] Send messages periodically
 - [ ] Timeout spammers
 
 ## Installation
@@ -46,6 +46,12 @@ pip3 install -r requirements.txt
 Open the file `config.py` and add your `CHANNEL` name and `OATH` key. If you don't already have a oath key you can get one from [twitchapps.com/tmi](https://twitchapps.com/tmi/).
 
 ## Usage
+<div align="center">
+    <div align="center">
+        <img src="assets/screen.png" width="90%">
+    </a>
+</div>
+</div>
 
 ```zsh
 python3 app.py -f name
@@ -70,6 +76,9 @@ badword2
 badword3
 ```
 Bobby will instantly ban these users from chat. Make sure that you give the bot moderator privileges if you are running it from a seperate account.
+
+### Periodic Messages
+The bot currently only sends out a specifc message once every `100` messages in chat. This can be found and changed in `config.py`.
 
 ## Contributing
 Pull requests are welcome. Please make sure to update tests as appropriate.
