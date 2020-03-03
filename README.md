@@ -29,7 +29,7 @@
 - [X] Logging every chat message (Read chat in your terminal emulator)
 - [X] Respond to messages in chat
 - [X] Respond to commands such as `!roll`
-- [X] Timeout / Ban users in chat for faul language
+- [X] Timeout / Ban users in chat for foul language
 - [X] Send messages periodically
 - [ ] Timeout spammers
 
@@ -68,7 +68,7 @@ It's simple to edit the chat responses! Simply, open the file `responses.txt` an
 
 Bobby will then respond with the following format: `@{user} {msg}` in a few milliseconds.
 
-### Faul Language
+### Foul Language
 There is a file named `bannable_words.txt` which you can fill out with words you would neve want to see in a chat room.
 ```
 badword1
